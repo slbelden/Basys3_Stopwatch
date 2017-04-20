@@ -1,6 +1,6 @@
 // decoder2x4.v for EE 2390 Spring 2016 Lab #4
 `timescale 1ns / 1ps
-module decoder2x4(D,A,B,EN);
+module decoder2x4(D, A ,B, EN);
     output  [3:0]   D;
     input   A, B, EN;
     reg     [3:0]   D;
