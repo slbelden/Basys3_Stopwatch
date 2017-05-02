@@ -1,17 +1,21 @@
 // sevensegdecoder.v
-// Based off of sevenseghexdecoder.v from lab 4 
+// Based off of sevenseghexdecoder.v from lab 4,
+// Limited to decimal digits
+//
+// Shaya Wolf
+// 2017-04-17
 
-`timescale 1ns / 1ps 
+`timescale 1ns / 1ps
 
-module sevensegdecoder(Seg,Val); 
-	output 	[0:6] Seg; 
-	input 	[3:0] Val; 
-	reg 	[0:6] Seg; 
-	
-	always @(Val)  
-	begin 	
+module sevensegdecoder(Seg,Val);
+	output 	[0:6] Seg;
+	input 	[3:0] Val;
+	reg 	[0:6] Seg;
+
+	always @(Val)
+	begin
 		case(Val) // 0 = On | 1 = Off
-			4'h0: Seg = 7'b000_0001; 
+			4'h0: Seg = 7'b000_0001;
 			4'h1: Seg = 7'b100_1111; //      0
 			4'h2: Seg = 7'b001_0010; //     ---
 			4'h3: Seg = 7'b000_0110; // 5  |   |  1
