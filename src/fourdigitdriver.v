@@ -4,25 +4,32 @@
 // 95hz refresh rate given a 100MHz clock (full display refresh)
 // 
 // Stephen Belden
-// 2017-04-19
+// 2017-05-02
 
-module fourdigitdriver(A, B, C, D, clk, dots, seg, an, dp);
+module fourdigitdriver(A, B, C, D, clk, dots, seg, an, dp, flashing);
     input clk;
     input [3:0] A, B, C, D;
     input [0:3] dots;
+    input flashing;
     output reg [3:0] an;
     output [0:6] seg;
     output reg dp;
     
-    reg [17:0] count = 0;
+    reg [17:0] refreshCount = 0;
+    reg [25:0] flashingCount = 1;
     reg [1:0] select = 0;
     reg [3:0] Hex;
+    
+    reg flashState = 0;
     
     sevensegdecoder  u1(.Seg(seg[0:6]), .Val(Hex));
     
     always @(posedge clk)
-    begin        
-        if(count == 0)
+    begin
+        if(flashingCount == 0)
+            flashState = !flashState;
+    
+        if(refreshCount == 0)
         begin
             case(select)
                 2'b00:
@@ -56,7 +63,12 @@ module fourdigitdriver(A, B, C, D, clk, dots, seg, an, dp);
             endcase
             select = select + 1'b1;
         end
+        
+        if(flashState == 1 && flashing == 1)
+            an = 4'b1111;
+
         // Unsigned number count rolls over to 0 automatically
-        count = count + 1'b1;
+        refreshCount = refreshCount + 1'b1;
+        flashingCount = flashingCount + 1'b1;
     end
 endmodule
