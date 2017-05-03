@@ -1,10 +1,10 @@
-# Constraints for Stopwatch Level 1
+# Constraints for Stopwatch Level 3
 # Modified from Basys3_Lab04.xdc
 # For EE 2390 Final Project
 #
 # Stephen Belden
 # Shaya Wolf
-# 2017-04-26
+# 2017-05-02
 
 ## Clock signal
 set_property PACKAGE_PIN W5 [get_ports clk]
@@ -114,8 +114,8 @@ set_property PACKAGE_PIN W4 [get_ports {an[3]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports btnC]
 set_property PACKAGE_PIN T18 [get_ports start]
 	set_property IOSTANDARD LVCMOS33 [get_ports start]
-#set_property PACKAGE_PIN W19 [get_ports btnL]
-	#set_property IOSTANDARD LVCMOS33 [get_ports btnL]
+set_property PACKAGE_PIN W19 [get_ports lap]
+	set_property IOSTANDARD LVCMOS33 [get_ports lap]
 set_property PACKAGE_PIN T17 [get_ports reset]
 	set_property IOSTANDARD LVCMOS33 [get_ports reset]
 set_property PACKAGE_PIN U17 [get_ports stop]
