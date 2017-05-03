@@ -1,4 +1,4 @@
-# Constraints for Stopwatch Level 3
+# Constraints for Stopwatch Level 4
 # Modified from Basys3_Lab04.xdc
 # For EE 2390 Final Project
 #
@@ -42,8 +42,8 @@ set_property PACKAGE_PIN V17 [get_ports up]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[13]}]
 #set_property PACKAGE_PIN T1 [get_ports {sw[14]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[14]}]
-#set_property PACKAGE_PIN R2 [get_ports {sw[15]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[15]}]
+set_property PACKAGE_PIN R2 [get_ports set]
+	set_property IOSTANDARD LVCMOS33 [get_ports set]
 
 
 ## LEDs

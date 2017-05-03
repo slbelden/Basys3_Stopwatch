@@ -5,7 +5,7 @@
 // 2017-05-02
 
 `timescale 1ns / 1ps
-module stopwatchController(seg, an, clk, dp, start, stop, up, reset, lap);
+module stopwatchController(seg, an, clk, dp, start, stop, up, reset, lap, set);
     output [0:6] seg;
     output [3:0] an;
     output [0:0] dp;
@@ -15,6 +15,7 @@ module stopwatchController(seg, an, clk, dp, start, stop, up, reset, lap);
     input up;
     input reset;
     input lap;
+    input set;
 
     reg [0:3] dots = 4'b1010;
     reg tick = 1'b0;
@@ -24,6 +25,7 @@ module stopwatchController(seg, an, clk, dp, start, stop, up, reset, lap);
     reg countDirection = 1'b1;
     reg resetState = 1'b0;
     reg lapState = 1'b0;
+    reg setState = 1'b0;
     
     wire [3:0] A;
     wire [3:0] B;
@@ -66,7 +68,7 @@ module stopwatchController(seg, an, clk, dp, start, stop, up, reset, lap);
             lapState = 0;
 
         // Stop at 0 and flash
-        if(A == 0 && B == 0 && C == 0 && D == 0 && started)
+        if(A == 0 && B == 0 && C == 0 && D == 0 && started && setState == 0)
         begin
             running = 0;
             flashing = 1;
@@ -92,8 +94,16 @@ module stopwatchController(seg, an, clk, dp, start, stop, up, reset, lap);
             lapC = C;
             lapD = D;
         end
-
-        count = count + 1;
+        
+        // Set setState
+        if(!running)
+            setState = set;
+        
+        if(!setState)
+            count = count + 1;
+        else
+            count = count + 5;
+            
         if(count >= 5000000)
         begin
             tick = tick + 1'b1;
